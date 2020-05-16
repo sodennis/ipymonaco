@@ -1,10 +1,12 @@
 var path = require('path');
 var version = require('./package.json').version;
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 // Custom webpack rules are generally the same for all webpack bundles, hence
 // stored in a separate local variable.
 var rules = [
-    { test: /\.css$/, use: ['style-loader', 'css-loader']}
+    { test: /\.css$/, use: ['style-loader', 'css-loader']},
+    { test: /\.ttf$/, use: ['file-loader']}
 ]
 
 
@@ -22,7 +24,13 @@ module.exports = [
             filename: 'extension.js',
             path: path.resolve(__dirname, '..', 'ipymonaco', 'static'),
             libraryTarget: 'amd'
-        }
+        },
+        module: {
+            rules: rules
+        },
+        plugins: [
+            new MonacoWebpackPlugin()
+        ]
     },
     {// Bundle for the notebook containing the custom widget views and models
      //
@@ -40,7 +48,12 @@ module.exports = [
         module: {
             rules: rules
         },
-        externals: ['@jupyter-widgets/base']
+        externals: [
+            '@jupyter-widgets/base'
+        ],
+        plugins: [
+            new MonacoWebpackPlugin()
+        ]
     },
     {// Embeddable ipymonaco bundle
      //
@@ -67,6 +80,11 @@ module.exports = [
         module: {
             rules: rules
         },
-        externals: ['@jupyter-widgets/base']
+        externals: [
+            '@jupyter-widgets/base'
+        ],
+        plugins: [
+            new MonacoWebpackPlugin()
+        ]
     }
 ];

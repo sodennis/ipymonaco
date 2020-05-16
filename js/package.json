@@ -1,6 +1,6 @@
 {
   "name": "ipymonaco",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Jupyter widget that renders the Microsoft Monaco text editor inline within the notebook",
   "author": "Lai Kit So",
   "main": "lib/index.js",
@@ -28,11 +28,16 @@
   },
   "devDependencies": {
     "webpack": "^3.5.5",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "css-loader": "^3.5.3",
+    "file-loader": "^6.0.0",
+    "style-loader": "^1.2.1"
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1.1 || ^2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "monaco-editor": "^0.20.0",
+    "monaco-editor-webpack-plugin": "^1.9"
   },
   "jupyterlab": {
     "extension": "lib/labplugin"
