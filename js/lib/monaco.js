@@ -25,8 +25,8 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
         _view_name : 'MonacoView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.7',
-        _view_module_version : '0.0.7',
+        _model_module_version : '0.0.8',
+        _view_module_version : '0.0.8',
         value : '',
         theme : '',
         language : '',
@@ -44,7 +44,7 @@ var MonacoView = widgets.DOMWidgetView.extend({
         
         this.el.appendChild(this.container_input);
         
-        window.editor = monaco.editor.create(document.getElementById('container'),
+        window.editor = monaco.editor.create(this.container_input,
         {
             language: this.model.get('language'),
             theme: this.model.get('theme'),
