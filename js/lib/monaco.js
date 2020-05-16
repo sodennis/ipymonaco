@@ -1,21 +1,8 @@
-import * as monaco from 'monaco-editor'
+var monaco = require('monaco-editor');
 var widgets = require('@jupyter-widgets/base');
 var _ = require('lodash');
 
 // See monaco.py for the kernel counterpart to this file.
-
-// Monaco
-require.config({ 
-    paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }
-});
-window.MonacoEnvironment = { getWorkerUrl: () => proxy };
-
-let proxy = URL.createObjectURL(new Blob([`
-    self.MonacoEnvironment = {
-        baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
-    };
-    importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
-`], { type: 'text/javascript' }));
 
 // Custom Model. Custom widgets models must at least provide default values
 // for model attributes, including
@@ -38,8 +25,8 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
         _view_name : 'MonacoView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.6',
-        _view_module_version : '0.0.6',
+        _model_module_version : '0.0.7',
+        _view_module_version : '0.0.7',
         value : '',
         theme : '',
         language : '',
