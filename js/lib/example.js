@@ -25,8 +25,8 @@ var HelloModel = widgets.DOMWidgetModel.extend({
         _view_name : 'HelloView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.2',
-        _view_module_version : '0.0.2',
+        _model_module_version : '0.0.5',
+        _view_module_version : '0.0.5',
         value : 'Hello World!'
     })
 });

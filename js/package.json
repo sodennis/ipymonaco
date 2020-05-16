@@ -1,12 +1,12 @@
 {
   "name": "ipymonaco",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A Jupyter widget that renders the Microsoft Monaco text editor inline within the notebook",
   "author": "Lai Kit So",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dennisso/ipymonaco.git"
+    "url": "https://github.com/sodennis/ipymonaco.git"
   },
   "keywords": [
     "jupyter",

@@ -152,7 +152,7 @@ setup_args = {
 
     'author': 'Lai Kit So',
     'author_email': 'dennisso81@gmail.com',
-    'url': 'https://github.com/dennisso/ipymonaco',
+    'url': 'https://github.com/sodennis/ipymonaco',
     'keywords': [
         'ipython',
         'jupyter',
