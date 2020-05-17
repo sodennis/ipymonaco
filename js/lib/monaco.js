@@ -25,8 +25,8 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
         _view_name : 'MonacoView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.8',
-        _view_module_version : '0.0.8',
+        _model_module_version : '0.0.9',
+        _view_module_version : '0.0.9',
         value : '',
         theme : '',
         language : '',
@@ -43,19 +43,19 @@ var MonacoView = widgets.DOMWidgetView.extend({
         this.container_input.setAttribute("style", "height: 300px;");
         
         this.el.appendChild(this.container_input);
-        
-        window.editor = monaco.editor.create(this.container_input,
-        {
-            language: this.model.get('language'),
-            theme: this.model.get('theme'),
-            value: this.model.get('value'),
+        this._editor_constructed = this.displayed.then(async () => {
+            console.log('loaded monaco');
+            window.editor = monaco.editor.create(this.container_input,
+            {
+                language: this.model.get('language'),
+                theme: this.model.get('theme'),
+                value: this.model.get('value'),
+            });
+            // Python -> JavaScript update
+            this.model.on('change:value', this.value_changed, this);
+            // JavaScript -> Python update
+            this.container_input.onchange = this.input_changed.bind(this); 
         });
-        
-        // Python -> JavaScript update
-        this.model.on('change:value', this.value_changed, this);
-
-        // JavaScript -> Python update
-        this.container_input.onchange = this.input_changed.bind(this); 
     },
 
     value_changed: function() {
