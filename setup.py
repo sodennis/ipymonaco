@@ -67,7 +67,12 @@ class NPM(Command):
 
     targets = [
         os.path.join(here, 'ipymonaco', 'static', 'extension.js'),
-        os.path.join(here, 'ipymonaco', 'static', 'index.js')
+        os.path.join(here, 'ipymonaco', 'static', 'index.js'),
+        os.path.join(here, 'ipymonaco', 'static', 'ts.worker.js'),
+        os.path.join(here, 'ipymonaco', 'static', 'json.worker.js'),
+        os.path.join(here, 'ipymonaco', 'static', 'html.worker.js'),
+        os.path.join(here, 'ipymonaco', 'static', 'css.worker.js'),
+        os.path.join(here, 'ipymonaco', 'static', 'editor.worker.js')
     ]
 
     def initialize_options(self):
@@ -135,6 +140,17 @@ setup_args = {
             'ipymonaco/static/extension.js',
             'ipymonaco/static/index.js',
             'ipymonaco/static/index.js.map',
+            'ipymonaco/static/editor.worker.js',
+            'ipymonaco/static/editor.worker.js.map',
+            'ipymonaco/static/css.worker.js',
+            'ipymonaco/static/css.worker.js.map',
+            'ipymonaco/static/html.worker.js',
+            'ipymonaco/static/html.worker.js.map',
+            'ipymonaco/static/json.worker.js',
+            'ipymonaco/static/json.worker.js.map',
+            'ipymonaco/static/ts.worker.js',
+            'ipymonaco/static/ts.worker.js.map',
+            'ipymonaco/static/9242107df7da7c6ad3cadf3133abcd37.ttf'
         ],),
         ('etc/jupyter/nbconfig/notebook.d' ,['ipymonaco.json'])
     ],
