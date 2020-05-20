@@ -7,14 +7,7 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 // stored in a separate local variable.
 var rules = [
     { test: /\.css$/, use: ['style-loader', 'css-loader']},
-    { test: /\.ttf$/, use: [
-        {
-            loader: 'file-loader',
-            options: {
-                publicPath: '/nbextensions/ipymonaco/'
-            }
-        }
-    ]}
+    { test: /\.ttf$/, use: ['file-loader']}
 ]
 
 
@@ -37,9 +30,7 @@ module.exports = [
             rules: rules
         },
         plugins: [
-            new MonacoWebpackPlugin({
-                publicPath: '/nbextensions/ipymonaco/'
-            }),
+            new MonacoWebpackPlugin(),
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1,
             }),
@@ -65,9 +56,7 @@ module.exports = [
             '@jupyter-widgets/base'
         ],
         plugins: [
-            new MonacoWebpackPlugin({
-                publicPath: '/nbextensions/ipymonaco/'
-            }),
+            new MonacoWebpackPlugin(),
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1,
             })
@@ -102,9 +91,7 @@ module.exports = [
             '@jupyter-widgets/base'
         ],
         plugins: [
-            new MonacoWebpackPlugin({
-                publicPath: '/nbextensions/ipymonaco/'
-            }),
+            new MonacoWebpackPlugin(),
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1,
             })
