@@ -11,7 +11,7 @@ var rules = [
         {
             loader: 'file-loader',
             options: {
-                outputPath: '/nbextensions/ipymonaco/'
+                publicPath: '/nbextensions/ipymonaco/'
             }
         }
     ]}
