@@ -4,7 +4,13 @@
 //
 // We have to define this within index.js as well as extensions.js because we are built 
 // monaco-editor-webpack-plugin respects the __webpack_public_path__ variable. https://github.com/microsoft/monaco-editor-webpack-plugin/pull/81
-__webpack_public_path__ = document.querySelector('body').getAttribute('data-base-url') + 'nbextensions/ipymonaco' + '/';
+
+
+// If this ipywidget is used within JupyterLab, the body will not have the 'data-base-url' attribute.
+// We also don't need to dynamic set the public path.
+if (document.querySelector('body').getAttribute('data-base-url') !== null) {
+    __webpack_public_path__ = document.querySelector('body').getAttribute('data-base-url') + 'nbextensions/ipymonaco' + '/';
+}
 
 // Export widget models and views, and the npm package version number.
 module.exports = require('./monaco.js');
