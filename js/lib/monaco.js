@@ -25,12 +25,17 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
         _view_name : 'MonacoView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.16',
-        _view_module_version : '0.0.16',
+        _model_module_version : '0.0.17',
+        _view_module_version : '0.0.17',
         value : '',
         theme : '',
         language : '',
+        height : 300,
         readOnly : false,
+        rulers : [],
+        useTabStops : false,
+        wordWrap : 'off',
+        wordWrapColumn: 80,
     })
 });
 
@@ -41,7 +46,7 @@ var MonacoView = widgets.DOMWidgetView.extend({
     render: function() {
         this.container_input = document.createElement('div');
         this.container_input.setAttribute("id", "container");
-        this.container_input.setAttribute("style", "height: 300px;");
+        this.container_input.setAttribute("style", "height: " + this.model.get('height') + "px;");
         
         this.el.appendChild(this.container_input);
         this._editor_constructed = this.displayed.then(async () => {
@@ -52,6 +57,10 @@ var MonacoView = widgets.DOMWidgetView.extend({
                 theme: this.model.get('theme'),
                 value: this.model.get('value'),
                 readOnly: this.model.get('readOnly'),
+                rulers : this.model.get('rulers'),
+                useTabStops: this.model.get('useTabStops'),
+                wordWrap: this.model.get('wordWrap'),
+                wordWrapColumn: this.model.get('wordWrapColumn'),
             });
             // Python -> JavaScript update
             this.model.on('change:value', this.value_changed, this);
