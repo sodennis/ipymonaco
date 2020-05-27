@@ -25,8 +25,8 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
         _view_name : 'MonacoView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.17',
-        _view_module_version : '0.0.17',
+        _model_module_version : '0.0.18',
+        _view_module_version : '0.0.18',
         value : '',
         theme : '',
         language : '',
@@ -65,7 +65,8 @@ var MonacoView = widgets.DOMWidgetView.extend({
             // Python -> JavaScript update
             this.model.on('change:value', this.value_changed, this);
             // JavaScript -> Python update
-            this.container_input.onchange = this.input_changed.bind(this); 
+            this.container_input.onchange = this.input_changed.bind(this);
+            this.container_input.onpaste = this.input_changed.bind(this);   
         });
     },
 
