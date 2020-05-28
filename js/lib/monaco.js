@@ -25,8 +25,8 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
         _view_name : 'MonacoView',
         _model_module : 'ipymonaco',
         _view_module : 'ipymonaco',
-        _model_module_version : '0.0.18',
-        _view_module_version : '0.0.18',
+        _model_module_version : '0.0.20',
+        _view_module_version : '0.0.20',
         value : '',
         theme : '',
         language : '',
@@ -51,7 +51,13 @@ var MonacoView = widgets.DOMWidgetView.extend({
         this.el.appendChild(this.container_input);
         this._editor_constructed = this.displayed.then(async () => {
             console.log('loaded monaco');
-            window.editor = monaco.editor.create(this.container_input,
+
+            // Ensure the Monaco Editor can measure the container correctly,
+            // set the display style to `block`.
+            let _display = this.el.style.display;
+            this.el.style.display = 'block';
+
+            this.codeEditor = monaco.editor.create(this.container_input,
             {
                 language: this.model.get('language'),
                 theme: this.model.get('theme'),
@@ -62,21 +68,25 @@ var MonacoView = widgets.DOMWidgetView.extend({
                 wordWrap: this.model.get('wordWrap'),
                 wordWrapColumn: this.model.get('wordWrapColumn'),
             });
+
+            // Restore the existing layout.
+            this.el.style.display = _display;
+
+            // JavaScript -> Python update
+            let textModel = this.codeEditor.getModel();
+            this.textModel = textModel;
+            textModel.onDidChangeContent((event) => {
+                this.model.set('value', textModel.getValue());
+                this.model.save_changes();
+            });
+
             // Python -> JavaScript update
             this.model.on('change:value', this.value_changed, this);
-            // JavaScript -> Python update
-            this.container_input.onchange = this.input_changed.bind(this);
-            this.container_input.onpaste = this.input_changed.bind(this);   
         });
     },
 
     value_changed: function() {
-        window.editor.setValue(this.model.get('value'));
-    },
-
-    input_changed: function() {
-        this.model.set('value', window.editor.getValue());
-        this.model.save_changes();
+        this.textModel.setValue(this.model.get('value'));
     },
 });
 
