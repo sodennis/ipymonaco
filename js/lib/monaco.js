@@ -21,20 +21,20 @@ var _ = require('lodash');
 // differ from the defaults will be specified.
 var MonacoModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend(widgets.DOMWidgetModel.prototype.defaults(), {
-        _model_name : 'MonacoModel',
-        _view_name : 'MonacoView',
-        _model_module : 'ipymonaco',
-        _view_module : 'ipymonaco',
-        _model_module_version : '0.0.20',
-        _view_module_version : '0.0.20',
-        value : '',
-        theme : '',
-        language : '',
-        height : 300,
-        readOnly : false,
-        rulers : [],
-        useTabStops : false,
-        wordWrap : 'off',
+        _model_name: 'MonacoModel',
+        _view_name: 'MonacoView',
+        _model_module: 'ipymonaco',
+        _view_module: 'ipymonaco',
+        _model_module_version: '0.0.21',
+        _view_module_version: '0.0.21',
+        value: '',
+        theme: '',
+        language: '',
+        height: 300,
+        readOnly: false,
+        rulers: [],
+        useTabStops: false,
+        wordWrap: 'off',
         wordWrapColumn: 80,
     })
 });
@@ -43,50 +43,68 @@ var MonacoModel = widgets.DOMWidgetModel.extend({
 // Custom View. Renders the widget model.
 var MonacoView = widgets.DOMWidgetView.extend({
     // Defines how the widget gets rendered into the DOM
-    render: function() {
+    render: function () {
         this.container_input = document.createElement('div');
         this.container_input.setAttribute("id", "container");
         this.container_input.setAttribute("style", "height: " + this.model.get('height') + "px;");
-        
+
         this.el.appendChild(this.container_input);
-        this._editor_constructed = this.displayed.then(async () => {
-            console.log('loaded monaco');
+    },
 
-            // Ensure the Monaco Editor can measure the container correctly,
-            // set the display style to `block`.
-            let _display = this.el.style.display;
-            this.el.style.display = 'block';
-
-            this.codeEditor = monaco.editor.create(this.container_input,
+    initializeEditor: function () {
+        console.log('loaded monaco');
+        this.codeEditor = monaco.editor.create(this.container_input,
             {
                 language: this.model.get('language'),
                 theme: this.model.get('theme'),
                 value: this.model.get('value'),
                 readOnly: this.model.get('readOnly'),
-                rulers : this.model.get('rulers'),
+                rulers: this.model.get('rulers'),
                 useTabStops: this.model.get('useTabStops'),
                 wordWrap: this.model.get('wordWrap'),
                 wordWrapColumn: this.model.get('wordWrapColumn'),
             });
 
-            // Restore the existing layout.
-            this.el.style.display = _display;
-
-            // JavaScript -> Python update
-            let textModel = this.codeEditor.getModel();
-            this.textModel = textModel;
-            textModel.onDidChangeContent((event) => {
-                this.model.set('value', textModel.getValue());
-                this.model.save_changes();
-            });
-
-            // Python -> JavaScript update
-            this.model.on('change:value', this.value_changed, this);
+        // JavaScript -> Python update
+        let textModel = this.codeEditor.getModel();
+        this.textModel = textModel;
+        textModel.onDidChangeContent((event) => {
+            this.model.set('value', textModel.getValue());
+            this.model.save_changes();
         });
+
+        // Python -> JavaScript update
+        this.model.on('change:value', this.value_changed, this);
     },
 
-    value_changed: function() {
+    value_changed: function () {
         this.textModel.setValue(this.model.get('value'));
+    },
+
+    processPhosphorMessage: function (msg) {
+        widgets.DOMWidgetView.prototype.processPhosphorMessage.call(this, msg);
+        switch (msg.type) {
+            case 'after-attach':
+                this.initializeEditor();
+            case 'after-show':
+                if (this.codeEditor !== undefined) {
+                    this.codeEditor.layout();  // Reinitialize the editor's layout
+                }
+                break;
+        }
+    },
+
+    processLuminoMessage: function (msg) {
+        widgets.DOMWidgetView.prototype.processLuminoMessage.call(this, msg);
+        switch (msg.type) {
+            case 'after-attach':
+                this.initializeEditor();
+            case 'after-show':
+                if (this.codeEditor !== undefined) {
+                    this.codeEditor.layout();  // Reinitialize the editor's layout
+                }
+                break;
+        }
     },
 });
 
