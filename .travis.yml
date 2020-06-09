@@ -4,7 +4,7 @@ node_js:
 before_install:
   - cd docs
 install:
-  - npm ci
+  - npm install
 script:
   - npm run docs:build
 deploy:
