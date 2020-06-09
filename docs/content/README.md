@@ -2,6 +2,8 @@
 
 ![ipymonaco](~@assets/img/ipymonaco.png)
 
+This Jupyter notebook renders Microsoft's Monaco text editor as a ipywidget widget.
+
 ## Compatibilities
 ipymonaco is tested on the following platforms.
 
