@@ -67,3 +67,32 @@ There are three themes within the Monaco editor: `vs`, `vs-dark` and `hc-black`.
 `language: string, default=''`
 
 Monaco Editor supports a list of languages. You can see the list of supported langauges on this page: [https://microsoft.github.io/monaco-editor/](https://microsoft.github.io/monaco-editor/).
+
+### Dimensions
+`height: int, default=300`
+
+The dimensions of the Monaco Editor can be specified upon initialization. You can specify the height of the text editor in `px`.
+
+### Read Only
+`readOnly: bool, default=False`
+
+The text editor can be set to read only.
+
+### Rulers
+`rulers: [int], default=[]`
+
+The text editor allows you to render vertical lines at the specified colums.
+
+### Use Tab Stops
+`useTabStops: bool, default=False`
+
+If tab stops is enabled and tabs are using multiple spaces, the Monaco Editor will delete the number of spaces equivalent to a single tab.
+
+### Word Wrap
+`wordWrap: string, default='off'`
+
+Controls the wrapping of the editor. When it is `off`, the lines will not wrap. When it is `on`, the lines will wrap at the viewport width. When it is `wordWrapColumn`, it will wrap at the column specified by `wordWrapColumn`. When it is `bounded`, it will wrap at `min(viewport width, wordWrapColumn)`.
+
+### Word Wrap Column
+`wordWrapColumn: int, default=80`
+Controls the wrapping of the editor when `wordWrap` is set to `wordWrapColumn` or `bounded`.
