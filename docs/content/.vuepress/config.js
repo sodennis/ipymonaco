@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     title: 'ipymonaco',
     description: 'A Jupyter widget that renders the Microsoft\'s Monaco text editor inline within the notebook.',
@@ -35,4 +37,11 @@ module.exports = {
     markdown: {
         lineNumbers: false,
     },
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@assets': path.resolve(__dirname,'../assets')
+            }
+        }
+    }
 };
