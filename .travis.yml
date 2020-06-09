@@ -1,8 +1,12 @@
 language: node_js
 node_js:
   - lts/*
-before_deploy:
+before_install:
   - cd docs
+install:
+  - npm ci
+script:
+  - npm run docs:build
 deploy:
   provider: pages
   skip_cleanup: true
