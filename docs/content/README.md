@@ -5,7 +5,6 @@ heroImage: ipymonaco.png
 heroText: 'ipymonaco'
 actionText: Get Started →
 actionLink: /guide/install
-pageClass: custom-home-page
 ---
 
 ## Compatibilities

@@ -66,4 +66,4 @@ There are three themes within the Monaco editor: `vs`, `vs-dark` and `hc-black`.
 ### Language
 `language: string, default=''`
 
-Monaco Editor supports a list of languages. You can see the list of supported langauges on this page: https://microsoft.github.io/monaco-editor/.
+Monaco Editor supports a list of languages. You can see the list of supported langauges on this page: [https://microsoft.github.io/monaco-editor/](https://microsoft.github.io/monaco-editor/).
