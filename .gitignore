@@ -9,5 +9,8 @@ venv/
 # Compiled javascript
 ipymonaco/static/
 
+# Compiled vuepress
+docs/content/.vuepress/dist
+
 # OS X
 .DS_Store
