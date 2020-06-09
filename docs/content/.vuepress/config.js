@@ -29,6 +29,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/guide/install',
+                    '/guide/usage',
                     '/guide/uninstall'
                 ],
             },
