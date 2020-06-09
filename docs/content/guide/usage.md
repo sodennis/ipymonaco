@@ -1,3 +1,7 @@
+---
+sidebarDepth: 2
+---
+
 # Usage
 ::: tip
 If you want to play around with ipymonaco, you can use this interactive notebook
