@@ -8,6 +8,7 @@ module.exports = {
     // serviceWorker: true,
     themeConfig: {
         algolia: {
+            appId: 'Z1PPTXWWHK',
             apiKey: '17ba387ade07159035fd0f86a4080cbf',
             indexName: 'ipymonaco'
         },
