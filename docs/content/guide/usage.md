@@ -6,7 +6,7 @@ sidebarDepth: 2
 ::: tip
 If you want to play around with ipymonaco, you can use this interactive notebook
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/sodennis/ipymonaco/master?filepath=docs%2Fnotebook%2Fipymonaco.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/sodennis/ipymonaco/binder-demo?filepath=ipymonaco.ipynb)
 :::
 
 ## Initialization
