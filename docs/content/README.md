@@ -13,8 +13,8 @@ ipymonaco is tested on the following platforms.
 | Platforms                         | Kernel                         | Link                                                         |
 | --------------------------------- | ------------------------------ | ------------------------------------------------------------ |
 | Kaggle Kernel [Classic Notebook] | python==3.7.6, ipython==7.13.0 | [![Kaggle](https://img.shields.io/badge/launch-kaggle-blue)](https://www.kaggle.com/sodennis/ipymonaco)                                                             |
-| Classic Notebook 6.0.3            | python==3.7.6, ipython==7.11.1 | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sodennis/ipymonaco/master?filepath=docs%2Fnotebook%2Fipymonaco.ipynb) |
-| JupyterLab 1.2.6                  | python==3.7.6, ipython==7.11.1 | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sodennis/ipymonaco/master?filepath=docs%2Fnotebook%2Fipymonaco.ipynb) |
+| Classic Notebook 6.0.3            | python==3.7.6, ipython==7.11.1 | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sodennis/ipymonaco/binder-demo?filepath=ipymonaco.ipynb) |
+| JupyterLab 1.2.6                  | python==3.7.6, ipython==7.11.1 | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sodennis/ipymonaco/binder-demo?filepath=ipymonaco.ipynb) |
 
 ipymonaco does not work on:
 
