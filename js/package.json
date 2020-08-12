@@ -1,19 +1,21 @@
 {
   "name": "ipymonaco",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "A Jupyter widget that renders the Microsoft Monaco text editor inline within the notebook",
   "author": "Lai Kit So",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sodennis/ipymonaco.git"
+    "url": "https://github.com/OrionisBio/ipymonaco.git"
   },
   "keywords": [
     "jupyter",
     "widgets",
     "ipython",
     "ipywidgets",
-    "jupyterlab-extension"
+    "jupyterlab-extension",
+    "jupyterlab",
+    "monaco"
   ],
   "files": [
     "lib/**/*.js",
@@ -26,6 +28,12 @@
     "watch": "webpack --watch --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@jupyter-widgets/base": "^1.1 || ^2.0.0 || ^3.0.0",
+    "lodash": "^4.17.4",
+    "monaco-editor": "^0.20.0",
+    "monaco-editor-webpack-plugin": "^1.9"
+  },
   "devDependencies": {
     "webpack": "^3.5.5",
     "rimraf": "^2.6.1",
@@ -33,13 +41,23 @@
     "file-loader": "^6.0.0",
     "style-loader": "^1.2.1"
   },
-  "dependencies": {
-    "@jupyter-widgets/base": "^1.1 || ^2",
-    "lodash": "^4.17.4",
-    "monaco-editor": "^0.20.0",
-    "monaco-editor-webpack-plugin": "^1.9"
-  },
   "jupyterlab": {
-    "extension": "lib/labplugin"
+    "extension": "lib/labplugin",
+    "discovery": {
+      "kernel": [
+        {
+          "kernel_spec": {
+            "language": "^python"
+          },
+          "base": {
+            "name": "ipymonaco"
+          },
+          "managers": [
+            "pip",
+            "conda"
+          ]
+        }
+      ]
+    }
   }
 }
