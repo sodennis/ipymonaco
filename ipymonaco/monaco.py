@@ -71,8 +71,8 @@ class Monaco(widgets.DOMWidget):
     _keyup_handlers_present = Bool(default_value=False).tag(sync=True)
     _keydown_handlers_present = Bool(default_value=False).tag(sync=True)
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self._keyup_handlers = widgets.CallbackDispatcher()
         self._keydown_handlers= widgets.CallbackDispatcher()
 
