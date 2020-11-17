@@ -31,9 +31,13 @@ class Monaco(widgets.DOMWidget):
     # https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandaloneeditorconstructionoptions.html#value
     value = Unicode('', help="The value of the current model attached to this editor.").tag(sync=True)
 
+    # The value against which to diff the model attached to this editor.
+    # https://microsoft.github.io/monaco-editor/api/modules/monaco.editor.html#creatediffeditor
+    diffvalue = Unicode('', help="The value against which to diff the model attached to this editor.").tag(sync=True)
+
     # Initial theme to be used for rendering. The current out-of-the-box available themes are: 'vs' (default), 'vs-dark', 'hc-black'.
     # https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandaloneeditorconstructionoptions.html#theme
-    theme = Unicode('', help="Initial theme to be used for rendering. The current out-of-the-box available themes are: 'vs' (default), 'vs-dark', 'hc-black'.").tag(sync=True)
+    theme = Unicode('', help="Initial theme to be used for rendering. The current out-of-the-box available themes are: 'vs' (default in Notebook, default in JupyterLab if light theme), 'vs-dark (default in JupyterLab if dark theme)', 'hc-black'.").tag(sync=True)
 
     # The initial language of the auto created model in the editor. To not create automatically a model, use model: null.
     # https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandaloneeditorconstructionoptions.html#language
@@ -62,3 +66,32 @@ class Monaco(widgets.DOMWidget):
     # Control the wrapping of the editor. When wordWrap = "off", the lines will never wrap. When wordWrap = "on", the lines will wrap at the viewport width. When wordWrap = "wordWrapColumn", the lines will wrap at wordWrapColumn. When wordWrap = "bounded", the lines will wrap at min(viewport width, wordWrapColumn). Defaults to 80.
     # https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandaloneeditorconstructionoptions.html#wordwrapcolumn
     wordWrapColumn = Integer(80, help='Control the wrapping of the editor. When wordWrap = "off", the lines will never wrap. When wordWrap = "on", the lines will wrap at the viewport width. When wordWrap = "wordWrapColumn", the lines will wrap at wordWrapColumn. When wordWrap = "bounded", the lines will wrap at min(viewport width, wordWrapColumn). Defaults to 80.').tag(sync=True)
+
+    # Internal use
+    _keyup_handlers_present = Bool(default_value=False).tag(sync=True)
+    _keydown_handlers_present = Bool(default_value=False).tag(sync=True)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._keyup_handlers = widgets.CallbackDispatcher()
+        self._keydown_handlers= widgets.CallbackDispatcher()
+
+    def on_keyup(self, callback, remove=False):
+        self._keyup_handlers.register_callback(callback, remove=remove)
+        self._keyup_handlers_present = True if len(self._keyup_handlers.callbacks) else False
+
+    def keyup(self, value):
+        self._keyup_handlers(self, value)
+
+    def on_keydown(self, callback, remove=False):
+        self._keydown_handlers.register_callback(callback, remove=remove)
+        self._keydown_handlers_present = True if len(self._keydown_handlers.callbacks) else False
+
+    def keydown(self, value):
+        self._keydown_handlers(self, value)
+
+    def _handle_custom_msg(self, content, buffers=None):
+        if content.get('event', '') == 'keyup':
+            self.keyup(content.get('value'))
+        elif content.get('event', '') == 'keydown':
+            self.keydown(content.get('value'))
