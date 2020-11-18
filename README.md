@@ -2,9 +2,12 @@ ipymonaco
 =========
 Render Microsoft's Monaco text editor as a ipywidget in Jupyter.
 
-![Publish Node.js Package](https://github.com/sodennis/ipymonaco/workflows/Publish%20Node.js%20Package/badge.svg)
-![Publish Python Package](https://github.com/sodennis/ipymonaco/workflows/Publish%20Python%20Package/badge.svg)
-![Generate Documentation](https://github.com/sodennis/ipymonaco/workflows/Generate%20Documentation/badge.svg)
+| Status                                                                                                            | Link                                                                    |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| ![Publish Node.js Package](https://github.com/sodennis/ipymonaco/workflows/Publish%20Node.js%20Package/badge.svg) | [npmjs.org/packages/ipymonaco](https://www.npmjs.com/package/ipymonaco) |
+| ![Publish Python Package](https://github.com/sodennis/ipymonaco/workflows/Publish%20Python%20Package/badge.svg)   | [pypi.org/project/ipymonaco](https://pypi.org/project/ipymonaco/)       |
+| ![Generate Documentation](https://github.com/sodennis/ipymonaco/workflows/Generate%20Documentation/badge.svg)     | [sodennis.github.io/ipymonaco/](https://sodennis.github.io/ipymonaco/)  |
+
 
 Documentation
 -------------
