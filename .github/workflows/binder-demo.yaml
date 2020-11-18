@@ -1,0 +1,38 @@
+name: docs
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths: [ 'docs/binder-demo/**' ]
+  pull_request:
+    branches: [ master ]
+    paths: [ 'docs/binder-demo/**' ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  generate-binder-demo:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs/binder-demo
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - name: Create local changes
+      - name: Create new repository
+        run: |
+          git init
+          git add .
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Add changes" -a
+      - name: deploy
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: binder-demo
