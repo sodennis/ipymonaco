@@ -13,5 +13,5 @@ if (document.querySelector('body').getAttribute('data-base-url') !== null) {
 }
 
 // Export widget models and views, and the npm package version number.
-module.exports = require('./monaco.js');
+module.exports = require('./monaco_plugin.js');
 module.exports['version'] = require('../package.json').version;
