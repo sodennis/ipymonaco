@@ -13,7 +13,9 @@
     "widgets",
     "ipython",
     "ipywidgets",
-    "jupyterlab-extension"
+    "jupyterlab-extension",
+    "jupyterlab",
+    "monaco"
   ],
   "files": [
     "lib/**/*.js",
@@ -26,6 +28,12 @@
     "watch": "webpack --watch --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@jupyter-widgets/base": "^1.1 || ^2 || ^3",
+    "lodash": "^4.17.4",
+    "monaco-editor": "^0.21.2",
+    "monaco-editor-webpack-plugin": "^2.0.0"
+  },
   "devDependencies": {
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
@@ -34,13 +42,23 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^4.2.0"
   },
-  "dependencies": {
-    "@jupyter-widgets/base": "^1.1 || ^2 || ^3",
-    "lodash": "^4.17.4",
-    "monaco-editor": "^0.21.2",
-    "monaco-editor-webpack-plugin": "^2.0.0"
-  },
   "jupyterlab": {
-    "extension": "lib/labplugin"
+    "extension": "lib/labplugin",
+    "discovery": {
+      "kernel": [
+        {
+          "kernel_spec": {
+            "language": "^python"
+          },
+          "base": {
+            "name": "ipymonaco"
+          },
+          "managers": [
+            "pip",
+            "conda"
+          ]
+        }
+      ]
+    }
   }
 }

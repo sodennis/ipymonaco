@@ -1,8 +1,8 @@
-var plugin = require('./index');
 var base = require('@jupyter-widgets/base');
+var plugin = require('./index');
 
 module.exports = {
-  id: 'ipymonaco',
+  id: 'jupyter.extensions.ipymonaco',
   requires: [base.IJupyterWidgetRegistry],
   activate: function(app, widgets) {
       widgets.registerWidget({
