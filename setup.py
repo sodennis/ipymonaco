@@ -54,7 +54,9 @@ def js_prerelease(command, strict=False):
 
 def get_data_files():
     return [
+        # like `jupyter nbextension install --sys-prefix`
         ('share/jupyter/nbextensions/ipymonaco', glob('ipymonaco/static/*')),
+        # like `jupyter nbextension enable --sys-prefix`
         ('etc/jupyter/nbconfig/notebook.d', ['ipymonaco.json']),
     ]
 
@@ -62,6 +64,14 @@ def update_package_data(distribution):
     """update package_data to catch changes during setup"""
     build_py = distribution.get_command_obj('build_py')
     # distribution.package_data = find_package_data()
+
+    # Updates the `data_files` so that it includes the static files needed for nbextensions.
+    # Without this line, then running `pip install ipymonaco` will not automatically install
+    # and enable the nbextension the Classic Notebook.
+    distribution.data_files = get_data_files()
+    # Stop the build if the JS assets are not built.
+    assert 'ipymonaco/static/extension.js' in glob('ipymonaco/static/*')
+
     # re-init build_py options which load package_data
     build_py.finalize_options()
 
@@ -142,7 +152,11 @@ setup_args = {
     'version': version_ns['__version__'],
     'description': 'A Jupyter widget that renders the Microsoft Monaco text editor inline within the notebook',
     'long_description': LONG_DESCRIPTION,
+    # `jupyter-notebook` uses the `data_files` to automatically install and enable the nbextensions and serverextension.
+    # https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Distributing%20Jupyter%20Extensions%20as%20Python%20Packages.html#Automatically-enabling-a-server-extension-and-nbextension
     'include_package_data': True,
+    # `data_files` get rewritten by `update_package_data` which is triggered with calling
+    # `python setup.py sdist bdist_wheel` to build the wheels for this package.
     'data_files': get_data_files(),
     'install_requires': [
         'ipywidgets>=7.0.0',
