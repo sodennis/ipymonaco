@@ -36,3 +36,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: binder-demo
           force: true
+          directory: docs/binder-demo
