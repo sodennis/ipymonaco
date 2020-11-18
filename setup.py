@@ -53,14 +53,9 @@ def js_prerelease(command, strict=False):
     return DecoratedCommand
 
 def get_data_files():
-    with open(os.path.join(node_root, 'package.json')) as f:
-        package_json = json.load(f)
-    tgz = '%s-%s.tgz' % (package_json['name'], package_json['version'])
-
     return [
         ('share/jupyter/nbextensions/ipymonaco', glob('ipymonaco/static/*')),
         ('etc/jupyter/nbconfig/notebook.d', ['ipymonaco.json']),
-        ('share/jupyter/lab/extensions', ['js/' + tgz]),
     ]
 
 def update_package_data(distribution):
