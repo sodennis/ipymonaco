@@ -1,9 +1,11 @@
 from __future__ import print_function
+from glob import glob
 from setuptools import setup, find_packages, Command
 from setuptools.command.sdist import sdist
 from setuptools.command.build_py import build_py
 from setuptools.command.egg_info import egg_info
 from subprocess import check_call
+import json
 import os
 import sys
 import platform
@@ -49,6 +51,17 @@ def js_prerelease(command, strict=False):
             command.run(self)
             update_package_data(self.distribution)
     return DecoratedCommand
+
+def get_data_files():
+    with open(os.path.join(node_root, 'package.json')) as f:
+        package_json = json.load(f)
+    tgz = '%s-%s.tgz' % (package_json['name'], package_json['version'])
+
+    return [
+        ('share/jupyter/nbextensions/ipymonaco', glob('ipymonaco/static/*')),
+        ('etc/jupyter/nbconfig/notebook.d', ['ipymonaco.json']),
+        ('share/jupyter/lab/extensions', ['js/' + tgz]),
+    ]
 
 def update_package_data(distribution):
     """update package_data to catch changes during setup"""
@@ -111,8 +124,8 @@ class NPM(Command):
 
         if self.should_run_npm_install():
             log.info("Installing build dependencies with npm.  This may take a while...")
-            npmName = self.get_npm_name();
-            check_call([npmName, 'install'], cwd=node_root, stdout=sys.stdout, stderr=sys.stderr)
+            npmName = self.get_npm_name()
+            check_call([npmName, 'install', '--unsafe-perm'], cwd=node_root, stdout=sys.stdout, stderr=sys.stderr)
             os.utime(self.node_modules, None)
 
         for t in self.targets:
@@ -135,25 +148,7 @@ setup_args = {
     'description': 'A Jupyter widget that renders the Microsoft Monaco text editor inline within the notebook',
     'long_description': LONG_DESCRIPTION,
     'include_package_data': True,
-    'data_files': [
-        ('share/jupyter/nbextensions/ipymonaco', [
-            'ipymonaco/static/extension.js',
-            'ipymonaco/static/index.js',
-            'ipymonaco/static/index.js.map',
-            'ipymonaco/static/editor.worker.js',
-            'ipymonaco/static/editor.worker.js.map',
-            'ipymonaco/static/css.worker.js',
-            'ipymonaco/static/css.worker.js.map',
-            'ipymonaco/static/html.worker.js',
-            'ipymonaco/static/html.worker.js.map',
-            'ipymonaco/static/json.worker.js',
-            'ipymonaco/static/json.worker.js.map',
-            'ipymonaco/static/ts.worker.js',
-            'ipymonaco/static/ts.worker.js.map',
-            'ipymonaco/static/9242107df7da7c6ad3cadf3133abcd37.ttf'
-        ],),
-        ('etc/jupyter/nbconfig/notebook.d' ,['ipymonaco.json'])
-    ],
+    'data_files': get_data_files(),
     'install_requires': [
         'ipywidgets>=7.0.0',
     ],
