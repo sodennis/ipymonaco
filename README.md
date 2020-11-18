@@ -2,7 +2,9 @@ ipymonaco
 =========
 Render Microsoft's Monaco text editor as a ipywidget in Jupyter.
 
-[![Build Status](https://travis-ci.com/sodennis/ipymonaco.svg?branch=master)](https://travis-ci.com/sodennis/ipymonaco)
+![Publish Node.js Package](https://github.com/sodennis/ipymonaco/workflows/Publish%20Node.js%20Package/badge.svg)
+![Publish Python Package](https://github.com/sodennis/ipymonaco/workflows/Publish%20Python%20Package/badge.svg)
+![Generate Documentation](https://github.com/sodennis/ipymonaco/workflows/Generate%20Documentation/badge.svg)
 
 Documentation
 -------------
