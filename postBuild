@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Fix for high memory usage on Binder with JupyterLab 2.x
+jupyter labextension install @jupyter-widgets/jupyterlab-manager ipymonaco --no-build
+jupyter lab build --minimize=False
