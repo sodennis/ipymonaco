@@ -40,11 +40,11 @@ You can install `ipymonaco` within JupyterLab. After the installation, you need 
 
 ```python
 # if the server has enough memory
-!pip install ipymonaco=="0.0.23a"
+!pip install ipymonaco
 !jupyter labextension install ipymonaco
 
 # if the server runs out of memory while minimizing static assets.
-!pip install ipymonaco=="0.0.23a"
+!pip install ipymonaco
 !jupyter labextension install ipymonaco --no-build
 !jupyter lab clean
 !jupyter lab build --minimize=False
