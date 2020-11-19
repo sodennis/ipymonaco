@@ -4,8 +4,7 @@
 
 ```bash
 # if notebook < 5.3
-$ jupyter nbextension uninstall --py --sys-prefix ipymonaoc
-
+$ jupyter nbextension uninstall --py --sys-prefix ipymonaco
 $ pip uninstall ipymonaco
 ```
 
